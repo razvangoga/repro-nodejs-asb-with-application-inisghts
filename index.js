@@ -1,7 +1,6 @@
 const appInsights = require('applicationinsights');
 const {ServiceBusClient} = require("@azure/service-bus");
 const {delay} = require("@azure/service-bus");
-const {MessageBusClient} = require("./MessageBusClient");
 
 (async () => {
     appInsights.setup(process.env.AppinsightsInstrumentationKey)
@@ -24,8 +23,6 @@ const {MessageBusClient} = require("./MessageBusClient");
         // envelope.tags[appInsights.defaultClient.context.keys.cloudRole] = `Navigator (v${process.env.AppOptions__ServiceVersion})`
         // envelope.tags[appInsights.defaultClient.context.keys.cloudRoleInstance] = `Navigator ${process.env.AppOptions__Sets}-${process.env.AppOptions__Region} (v${process.env.AppOptions__ServiceVersion})`
     })
-
-    const messageBusClient = new MessageBusClient();
 
     const serviceBusClient = new ServiceBusClient(process.env.AsbConnString)
     const sender = serviceBusClient.createSender(process.env.AsbTopicName)
@@ -50,7 +47,7 @@ const {MessageBusClient} = require("./MessageBusClient");
             correlationId: i
         }]
 
-        await this.sender.sendMessages(newBusMessages)
+        await sender.sendMessages(newBusMessages)
 
         console.info(`message ${i} sent`)
         await delay(2 * 1000)

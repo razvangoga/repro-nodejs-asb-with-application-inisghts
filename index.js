@@ -4,18 +4,18 @@ const {delay} = require("@azure/service-bus");
 
 (async () => {
     appInsights.setup(process.env.AppinsightsInstrumentationKey)
-    // .setDistributedTracingMode(appInsights.DistributedTracingModes.AI_AND_W3C)
-    // .setAutoDependencyCorrelation(true)
-    // .setAutoCollectRequests(true)
-    // .setAutoCollectPerformance(true)
-    // .setAutoCollectExceptions(true)
-    // .setAutoCollectDependencies(false)
-    // .setAutoCollectConsole(true)
-    // .setSendLiveMetrics(true)
-    // .setUseDiskRetryCaching(true)
-    // .setInternalLogging(true, true)
+    .setDistributedTracingMode(appInsights.DistributedTracingModes.AI_AND_W3C)
+    .setAutoDependencyCorrelation(true)
+    .setAutoCollectRequests(true)
+    .setAutoCollectPerformance(true)
+    .setAutoCollectExceptions(true)
+    .setAutoCollectDependencies(false)
+    .setAutoCollectConsole(true)
+    .setSendLiveMetrics(true)
+    .setUseDiskRetryCaching(true)
+    .setInternalLogging(true, true)
 
-    // appInsights.defaultClient.config.samplingPercentage = 100 //no sampling
+    appInsights.defaultClient.config.samplingPercentage = 100 //no sampling
     appInsights.start()
 
     appInsights.defaultClient.addTelemetryProcessor(envelope => {
